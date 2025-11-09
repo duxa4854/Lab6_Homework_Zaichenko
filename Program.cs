@@ -36,26 +36,38 @@
 //
 //Console.WriteLine("Конец программы");
 //
+// Исправленный код
 //while (true)
 //{
 //    try
 //    {
 //        Console.Write("Введите первое число: ");
-//        double number1 = Convert.ToDouble(Console.ReadLine());
+//        string input1 = Console.ReadLine() ?? "";
+//        if (string.IsNullOrWhiteSpace(input1))
+//        {
+//            Console.WriteLine("Ошибка: Введена пустая строка");
+//            continue;
+//        }
+//        double number1 = Convert.ToDouble(input1); // ИСПРАВЛЕНО: Добавлена проверка на пустую строку
 //        
 //        Console.Write("Введите второе число: ");
-//        double number2 = Convert.ToDouble(Console.ReadLine());
+//        string input2 = Console.ReadLine() ?? "";
+//        if (string.IsNullOrWhiteSpace(input2))
+//        {
+//            Console.WriteLine("Ошибка: Введена пустая строка");
+//            continue;
+//        }
+//        double number2 = Convert.ToDouble(input2); // ИСПРАВЛЕНО: Добавлена проверка на пустую строку
 //        
 //        Console.Write("Введите операцию (+, -, *, /): ");
 //        string? op = Console.ReadLine();
 //        
 //        double result = 0;
 //        
-//        switch (op)
+//       switch (op)
 //        {
 //            case "+": 
-//                result = number1 + number2; 
-//                break;
+//                result = number1 + number2; // ИСПРАВЛЕНО: Складываем number1 и number2
 //            case "-": 
 //                result = number1 - number2; 
 //                break;
@@ -63,8 +75,11 @@
 //                result = number1 * number2; 
 //                break;
 //            case "/":
-//                if (number2 == 0)
-//                    throw new DivideByZeroException("Нельзя делить на ноль!");
+//                if (number2 == 0) // ИСПРАВЛЕНО: Добавлена проверка на ноль
+//                {
+//                    Console.WriteLine("Ошибка: Нельзя делить на ноль!");
+//                    continue;
+//                }
 //                result = number1 / number2; 
 //                break;
 //            default: 
@@ -72,23 +87,23 @@
 //                continue;
 //        }
 //        
-//        Console.WriteLine($"Результат: {result}");
+//        Console.WriteLine($"Результат: {result}"); // ИСПРАВЛЕНО: Используем инициализированную переменную
 //    }
 //    catch (FormatException)
 //    {
 //        Console.WriteLine("Ошибка ввода! Введите корректные числа.");
 //    }
-//    catch (DivideByZeroException ex)
-//    {
-//        Console.WriteLine($"Ошибка: {ex.Message}");
-//    }
 //    catch (Exception ex)
 //    {
 //        Console.WriteLine($"Произошла непредвиденная ошибка: {ex.Message}");
 //    }
-//    finally
+//    
+//    Console.Write("Продолжить? (y/n): ");
+//    string? answer = Console.ReadLine();
+//    if (answer?.ToLower() != "y") // ИСПРАВЛЕНО: Правильное условие выхода
 //    {
 //        Console.WriteLine("Работа калькулятора завершена.");
+//        break;
 //    }
 //}
 //
@@ -185,4 +200,5 @@
 //double answer = Add(a, b);
 //Console.WriteLine($"{a} + {b} = {answer}");
 //Console.WriteLine("Нажмите ENTER чтобы продолжить.");
+
 //Console.ReadLine();
